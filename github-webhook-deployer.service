@@ -1,0 +1,22 @@
+[Unit]
+Description=GitHub Webhook Deployer
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+ExecStart=/data/apps/github-webhook-deployer/listener.sh
+Restart=always
+RestartSec=10
+User=saniok1122
+Group=saniok1122
+WorkingDirectory=/data/apps/github-webhook-deployer
+StandardOutput=append:/data/apps/github-webhook-deployer/logs/systemd.log
+StandardError=append:/data/apps/github-webhook-deployer/logs/systemd-error.log
+
+# Security settings
+PrivateTmp=true
+NoNewPrivileges=false
+
+[Install]
+WantedBy=multi-user.target
